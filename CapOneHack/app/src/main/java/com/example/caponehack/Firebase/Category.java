@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Category {
-    private String name;
+    private String categoryName;
     private List<Date> dates;
     private List<String> people;
     private double maxCost;
@@ -16,23 +16,23 @@ public class Category {
         @NonNull
         @Override
         public Category parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-            return new Category(snapshot.getString("name"),
+            return new Category(snapshot.getString("categoryName"),
                     (List<Date>)snapshot.get("dates"),
                     (List<String>) snapshot.get("people"),
                     snapshot.getDouble("maxCost"));
         }
     };
 
-    public Category(String name, List<Date> dates, List<String> people, double maxCost)
+    public Category(String categoryName, List<Date> dates, List<String> people, double maxCost)
     {
-        this.name = name;
+        this.categoryName = categoryName;
         this.dates = dates;
         this.people = people;
         this.maxCost = maxCost;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public List<Date> getDates() {
