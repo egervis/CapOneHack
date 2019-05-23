@@ -58,6 +58,7 @@ public class TransactionFinder extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String response){
         if(response == null) {
+            listener.onFailure(new Exception("Failed to get a response from the server."));
             return;
         }
 

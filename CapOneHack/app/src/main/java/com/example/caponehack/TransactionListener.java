@@ -4,5 +4,5 @@ public interface TransactionListener {
 
     void onSuccess();
 
-    void onFailure();
+    void onFailure(Exception e);
 }
