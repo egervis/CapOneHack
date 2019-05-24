@@ -29,7 +29,7 @@ public class SelectionActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectionActivity.this, hr_makeForm.class);
+                Intent intent = new Intent(SelectionActivity.this, hrForm.class);
                 startActivity(intent);
             }
         });
