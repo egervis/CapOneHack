@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder>{
-/**
- * A {@link RecyclerView.Adapter} is used with a {@link RecyclerView}. It takes in the data which
- * should be displayed in the list and tells the UI how each individual piece of data should be
- * rendered.
- */
-    public TransactionAdapter() {
 
+    private List<Transaction> transactions = new ArrayList<>();
+    private TransactionClickedListener listener;
+
+    public TransactionAdapter(List<Transaction> transactions, TransactionClickedListener listener) {
+        this.transactions = transactions;
+        this.listener = listener;
     }
 
     /**
@@ -28,7 +28,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_transaction, parent, false);
+        return new ViewHolder(view);
     }
 
     /**
@@ -37,7 +38,19 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
      */
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
+        holder.merchant.setText(transactions.get(position).getMerchant());
+        holder.amount.setText(transactions.get(position).getAmount());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Inform the click listener that this row was clicked and pass the Transaction
+                // associated with this row.
+                //Maybe change this **********************
+                if (listener != null) {
+                    listener.onTransactionClicked(transactions.get(holder.getAdapterPosition()));
+                }
+            }
+        });
     }
 
     /**
@@ -45,7 +58,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return transactions.size();
     }
 
     /**
@@ -66,5 +79,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             merchant = rootView.findViewById(R.id.merchant);
             amount = rootView.findViewById(R.id.amount);
         }
+    }
+
+    public interface TransactionClickedListener {
+        void onTransactionClicked(Transaction transaction);
     }
 }
