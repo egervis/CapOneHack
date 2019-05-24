@@ -28,6 +28,8 @@ public class hr_makeForm extends AppCompatActivity {
             public void onClick(View v){
                 Spinner aSpinner = new Spinner(hr_makeForm.this);
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(hr_makeForm.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.category_array));
+               // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                aSpinner.setAdapter(spinnerArrayAdapter);
                 categories.add(aSpinner);
                 LinearLayout container=findViewById(R.id.spinner_container);
                 container.addView(aSpinner);
