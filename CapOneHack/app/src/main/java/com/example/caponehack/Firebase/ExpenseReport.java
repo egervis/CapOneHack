@@ -5,9 +5,11 @@ import java.util.List;
 
 public class ExpenseReport {
     private List<Expense> expenses;
+    private String name;
 
-    public ExpenseReport() {
+    public ExpenseReport(String name) {
         this.expenses = new ArrayList<>();
+        this.name = name;
     }
 
     public void addExpense(Expense expense)
@@ -17,5 +19,9 @@ public class ExpenseReport {
 
     public List<Expense> getExpenses() {
         return expenses;
+    }
+
+    public String getName() {
+        return name;
     }
 }

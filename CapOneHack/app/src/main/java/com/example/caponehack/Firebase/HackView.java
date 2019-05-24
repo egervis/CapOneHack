@@ -23,11 +23,12 @@ public class HackView {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 final String formName = documentSnapshot.getString("formName");
+                final String formId = documentSnapshot.getId();
                 db.collection("forms").document(formId).collection("categories")
                         .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        Form form = new Form(formName);
+                        Form form = new Form(formName, formId);
                         for (QueryDocumentSnapshot docSnapshot:queryDocumentSnapshots) {
                             try {
                                 Category category = Category.SNAPSHOTPARSER.parseSnapshot(docSnapshot);
@@ -55,6 +56,36 @@ public class HackView {
                     {
                         User user = User.SNAPSHOTPARSER.parseSnapshot(documentSnapshot);
                         onSuccessListener.onSuccess(user);
+                        break;
+                    }
+                }
+            }
+        }).addOnFailureListener(onFailureListener);
+    }
+
+    public void getExpenseReport(final String userName,
+                                 final OnSuccessListener<ExpenseReport> onSuccessListener,
+                                 final OnFailureListener onFailureListener) {
+        db.collection("expenseReports").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots)
+                {
+                    if(documentSnapshot.getString("userName").equals(userName))
+                    {
+                        final String expenseReportId = documentSnapshot.getId();
+                        db.collection("expenseReports").document(expenseReportId).collection("expenses").get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot snaps) {
+                                        ExpenseReport expenseReport = new ExpenseReport(userName);
+                                        for(QueryDocumentSnapshot snap : snaps)
+                                        {
+                                            expenseReport.addExpense(Expense.SNAPSHOTPARSER.parseSnapshot(snap));
+                                        }
+                                        onSuccessListener.onSuccess(expenseReport);
+                                    }
+                                }).addOnFailureListener(onFailureListener);
                         break;
                     }
                 }

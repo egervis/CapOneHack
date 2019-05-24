@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.caponehack.Firebase.Controller;
+import com.example.caponehack.Firebase.ExpenseReport;
 import com.example.caponehack.Firebase.Form;
 import com.example.caponehack.Firebase.HackView;
 import com.example.caponehack.Firebase.User;
@@ -38,73 +39,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-          Controller c = new Controller();
-//        c.createUser("Dave White", "regular", new OnSuccessListener<String>() {
-//            @Override
-//            public void onSuccess(String s) {
-//                ;
-//            }
-//        }, new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                ;
-//            }
-//        });
-//        c.createForm("Summit", new OnSuccessListener<String>() {
-//            @Override
-//            public void onSuccess(String s) {
-//                ;
-//            }
-//        }, new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                ;
-//            }
-//        });
-//        List<Date> d = new ArrayList<Date>();
-//        d.add(new Date());
-//        c.createCategory("a9RZm888Z9p4JdTlYKjV", "Taxi", d,
-//                 50, new OnSuccessListener() {
-//                    @Override
-//                    public void onSuccess(Object o) {
-//                        ;
-//                    }
-//                }, new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        ;
-//                    }
-//                });
-
-        HackView v = new HackView();
-//        v.getForm("a9RZm888Z9p4JdTlYKjV", new OnSuccessListener<Form>() {
-//            @Override
-//            public void onSuccess(Form form) {
-//                System.out.println(form.getFormName());
-//                System.out.println(form.getCategories().get(0).getCategoryName());
-//                System.out.println(form.getCategories().get(0).getDates().get(0));
-//                System.out.println(form.getCategories().get(0).getMaxCost());
-//            }
-//        }, new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                ;
-//            }
-//        });
-//        v.getUser("Dave White", new OnSuccessListener<User>() {
-//            @Override
-//            public void onSuccess(User user) {
-//                System.out.println(user.getName());
-//                System.out.println(user.getUserType());
-//                System.out.println(user.getUserId());
-//            }
-//        }, new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                ;
-//            }
-//        });
     }
 
 }
