@@ -21,29 +21,21 @@ public class hr_makeForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hr_make_form);
 
+        Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 
-        final Button addButton = findViewById(R.id.button);
-        final Button deleteButton = findViewById(R.id.button2);
+        ArrayList<StateV0> listVOs = new ArrayList<>();
+        String [] options =  getResources().getStringArray(R.array.category_array);
 
-        addButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Spinner aSpinner = new Spinner(hr_makeForm.this);
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(hr_makeForm.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.category_array));
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                aSpinner.setAdapter(spinnerArrayAdapter);
-                categories.add(aSpinner);
-                LinearLayout container=findViewById(R.id.spinner_container);
-                container.addView(aSpinner);
-            }
-        });
+        for (int i = 0; i < options.length; i++) {
+            StateV0 stateVO = new StateV0();
+            stateVO.setTitle(options[i]);
+            stateVO.setSelected(false);
+            listVOs.add(stateVO);
+        }
 
-        deleteButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                for(Spinner aSpinner: categories){
-                    aSpinner.animate()
-                }
-            }
-        });
+        MyAdapter myAdapter = new MyAdapter(hr_makeForm.this, 0,
+                listVOs);
+        spinner.setAdapter(myAdapter);
     }
 
     /*

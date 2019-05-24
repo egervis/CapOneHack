@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name ="category_prompt">Choose a expense category</string>
     <string-array name= "category_array">
+        <item>Select Expense Category</item>
         <item>Travel</item>
         <item>Food</item>
         <item>Custom</item>
