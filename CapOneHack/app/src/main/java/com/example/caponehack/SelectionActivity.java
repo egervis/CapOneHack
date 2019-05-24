@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Selection;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +19,8 @@ public class SelectionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
         System.out.println(getIntent().getExtras().getString("userName"));
         System.out.println(getIntent().getExtras().getString("userType"));
         System.out.println(getIntent().getExtras().getString("userId"));
@@ -27,6 +30,14 @@ public class SelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectionActivity.this, Categories.class);
+                startActivity(intent);
+            }
+        });
+        Button enter= findViewById(R.id.button);
+        enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SelectionActivity.this, hrForm.class);
                 startActivity(intent);
             }
         });

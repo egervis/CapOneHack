@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.caponehack.Firebase.Controller;
 import com.example.caponehack.Firebase.ExpenseReport;
@@ -53,11 +54,13 @@ public class MainActivity extends AppCompatActivity {
                             .build(),
                     RC_SIGN_IN);
         }
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
 
         Log.v(TAG, "Request Code: " + requestCode);
         Log.v(TAG, "Result Code: " + resultCode);
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.e(TAG, "Sign-in error: ", response.getError());
             }
+
         }
     }
 
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                                         intent.putExtra("userId",auth.getCurrentUser().getUid());
 
 
-                                        startActivity(intent);
+                                startActivity(intent);
                                         finish();
 
                                     }
