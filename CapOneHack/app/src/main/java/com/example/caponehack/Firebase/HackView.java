@@ -69,6 +69,22 @@ public class HackView {
         db.collection("users").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    User user;
+                    try {
+                        user = User.SNAPSHOTPARSER.parseSnapshot(documentSnapshot);
+                    } catch (NullPointerException exc) {
+                        user = null;
+                        Log.w(TAG, "User with id " + userId + " was corrupt ", exc);
+                    }
+                    onSuccessListener.onSuccess(user);
+                } else {
+                    Log.e(TAG, "User with id " + userId + " doesn't exit");
+                    onSuccessListener.onSuccess(null);
+                }
+
+
+
                 User user = User.SNAPSHOTPARSER.parseSnapshot(documentSnapshot);
                 onSuccessListener.onSuccess(user);
             }

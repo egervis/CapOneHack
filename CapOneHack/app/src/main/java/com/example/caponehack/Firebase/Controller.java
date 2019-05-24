@@ -20,21 +20,16 @@ public class Controller {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final static String TAG = Controller.class.getName();
 
-    //will create a user. Id is returned through callback
-    public void createUser(final String name,
+    //will create a user.
+    public void createUser(final String userId,
+                           final String name,
                            final String userType,
-                           final OnSuccessListener<String> successListener,
+                           final OnSuccessListener<Void> successListener,
                            final OnFailureListener failureListener) {
         Map<String, Object> user = new HashMap<>();
         user.put("name", name);
         user.put("userType", userType);
-        db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.i(TAG, "User successfully created.");
-                successListener.onSuccess(documentReference.getId());
-            }
-        }).addOnFailureListener(failureListener);
+        db.collection("users").document(userId).set(user).addOnSuccessListener(successListener).addOnFailureListener(failureListener);
     }
 
     //will create a form with a random id. Id is returned through a callback.
