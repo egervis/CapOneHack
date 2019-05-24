@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -61,14 +64,16 @@ public class TransactionFinder extends AsyncTask<Void, Void, String> {
             listener.onFailure(new Exception("Failed to get a response from the server."));
             return;
         }
-
+        List<Transaction> list = new ArrayList<>();
         try {
             JSONArray rootObject = new JSONArray(response);
             for(int i = 0; i < rootObject.length(); i++){
                 JSONObject curr = rootObject.getJSONObject(i);
-                curr.getString("type");
-                curr.getDouble("amount");
+                list.add(new Transaction(curr.getString("merchant_id"),
+                        Double.toString(curr.getDouble("amount")),
+                        curr.getString("purchase_date")));
             }
+            listener.onSuccess(list);
             System.out.println(rootObject);
         } catch(Exception e) {
             return;
