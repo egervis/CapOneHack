@@ -35,9 +35,11 @@ public class hr_makeForm extends AppCompatActivity {
         });
     }
 
+    /*
     public void addItemsOnSpinner(){
         Spinner aSpinner= (Spinner) findViewById(R.id.)
     }
+    */
 
 
 

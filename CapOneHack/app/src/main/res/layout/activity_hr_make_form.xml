@@ -10,7 +10,8 @@
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:backgroundTint="@color/cardview_dark_background"
+    android:layout_height="100dp">
 
     <LinearLayout
         android:id="@+id/spinner_container"
