@@ -40,6 +40,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.merchant.setText(transactions.get(position).getMerchant());
         holder.amount.setText(transactions.get(position).getAmount());
+        holder.date.setText(transactions.get(position).getDate());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

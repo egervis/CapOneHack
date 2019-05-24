@@ -1,23 +1,33 @@
 package com.example.caponehack;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+
+import com.example.caponehack.Firebase.Controller;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 
 public class Categories extends AppCompatActivity implements TransactionAdapter.TransactionClickedListener {
 
@@ -31,10 +41,13 @@ public class Categories extends AppCompatActivity implements TransactionAdapter.
     private DatePickerDialog.OnDateSetListener mDateSetListener1;
     private DatePickerDialog.OnDateSetListener mDateSetListener2;
 
+    //backend
+    private String ExpenseId;
+
     private TransactionListener listener = new TransactionListener() {
         @Override
         public void onSuccess(List<Transaction> list) {
-            submitDate.setEnabled(false);
+            //submitDate.setEnabled(false);
 
             //populate the view
             System.out.println(list);
@@ -136,12 +149,73 @@ public class Categories extends AppCompatActivity implements TransactionAdapter.
 
             }
         };
+
+
+        //backend
+        Controller cont = new Controller();
+        cont.createExpenseReport("Dorian", new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Categories.this.ExpenseId = s;
+            }
+        }, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     @Override
-    public void onTransactionClicked(Transaction transaction) {
-        Toast.makeText(this, transaction.toString(), Toast.LENGTH_LONG);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void onTransactionClicked(final Transaction transaction) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
+        builder.setTitle("Select Reimbursement Category");
+
+        final Spinner spinner = new Spinner(Categories.this);
+
+        List<String> spinnerItems = new ArrayList<>();
+        spinnerItems.add("Food");
+        spinnerItems.add("Travel");
+        spinnerItems.add("Gas");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, spinnerItems);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+        builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String[] a = transaction.getDate().split("-");
+
+                Controller expense = new Controller();
+                expense.createExpense(ExpenseId, String.valueOf(spinner.getSelectedItem()),
+                        Double.parseDouble(transaction.getAmount()), new Date(Integer.parseInt(a[0]), Integer.parseInt(a[1]), Integer.parseInt(a[2])),
+                        transaction.getMerchant(), "19 Bele Street, Arlington, Virginia",
+                        new OnSuccessListener<Void>(){
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                            }
+                        },
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+
+            }
+        });
+        builder.setView(spinner);
+
         builder.show();
+
+
+
+//        Intent intent = new Intent(Categories.this, Category_Select.class);
+//        intent.putExtra(Category_Select.DATE, transaction.getDate());
+//        intent.putExtra(Category_Select.MERCHANT, transaction.getMerchant());
+//        intent.putExtra(Category_Select.AMOUNT, transaction.getAmount());
+//        startActivity(intent);
     }
 }

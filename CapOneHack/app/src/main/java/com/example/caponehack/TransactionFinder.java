@@ -32,7 +32,7 @@ public class TransactionFinder extends AsyncTask<Void, Void, String> {
     }
 
     public TransactionFinder(){
-        userId = "5ce3fbb2322fa06b67794e25";
+        userId = "5ce79a746759394351beecea";
         date1 = "2019-05-19";
         date2 = "2019-05-24";
     }
@@ -44,9 +44,10 @@ public class TransactionFinder extends AsyncTask<Void, Void, String> {
 
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
 
+        //baseUrl + userId + "/purchases?key=bba75eeeefb1bcfbc715be5edfaba980"
         Request request = new Request.Builder()
                 .get()
-                .url(baseUrl + userId + "/purchases?key=bba75eeeefb1bcfbc715be5edfaba980")
+                .url("http://api.reimaginebanking.com/accounts/5ce79a746759394351beecea/purchases?key=bba75eeeefb1bcfbc715be5edfaba980")
                 .build();
 
         try {
@@ -69,10 +70,11 @@ public class TransactionFinder extends AsyncTask<Void, Void, String> {
             JSONArray rootObject = new JSONArray(response);
             for(int i = 0; i < rootObject.length(); i++){
                 JSONObject curr = rootObject.getJSONObject(i);
-                list.add(new Transaction(curr.getString("merchant_id"),
+                list.add(new Transaction(curr.getString("description"),
                         Double.toString(curr.getDouble("amount")),
                         curr.getString("purchase_date")));
             }
+
             listener.onSuccess(list);
             System.out.println(rootObject);
         } catch(Exception e) {

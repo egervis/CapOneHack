@@ -4,4 +4,5 @@
     <string name="bdate">Begin Date</string>
     <string name="edate">End Date</string>
     <string name="title_activity_selection">SelectionActivity</string>
+    <string name="title_activity_category__select">Category_Select</string>
 </resources>
