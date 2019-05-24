@@ -5,7 +5,9 @@ import java.util.List;
 
 public class Form {
     private List<Category> categories;
-    public Form() {
+    private String formName;
+    public Form(String formName) {
+        this.formName = formName;
         categories = new ArrayList<>();
     }
 
@@ -16,5 +18,9 @@ public class Form {
     public void addCategory(Category c)
     {
         this.categories.add(c);
+    }
+
+    public String getFormName() {
+        return this.formName;
     }
 }

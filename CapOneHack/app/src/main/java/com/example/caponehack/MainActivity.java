@@ -1,6 +1,7 @@
 package com.example.caponehack;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.caponehack.Firebase.Controller;
+import com.example.caponehack.Firebase.Form;
+import com.example.caponehack.Firebase.HackView;
+import com.example.caponehack.Firebase.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,27 +38,73 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+          Controller c = new Controller();
+//        c.createUser("Dave White", "regular", new OnSuccessListener<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                ;
+//            }
+//        }, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                ;
+//            }
+//        });
+//        c.createForm("Summit", new OnSuccessListener<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                ;
+//            }
+//        }, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                ;
+//            }
+//        });
+//        List<Date> d = new ArrayList<Date>();
+//        d.add(new Date());
+//        c.createCategory("a9RZm888Z9p4JdTlYKjV", "Taxi", d,
+//                 50, new OnSuccessListener() {
+//                    @Override
+//                    public void onSuccess(Object o) {
+//                        ;
+//                    }
+//                }, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        ;
+//                    }
+//                });
+
+        HackView v = new HackView();
+//        v.getForm("a9RZm888Z9p4JdTlYKjV", new OnSuccessListener<Form>() {
+//            @Override
+//            public void onSuccess(Form form) {
+//                System.out.println(form.getFormName());
+//                System.out.println(form.getCategories().get(0).getCategoryName());
+//                System.out.println(form.getCategories().get(0).getDates().get(0));
+//                System.out.println(form.getCategories().get(0).getMaxCost());
+//            }
+//        }, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                ;
+//            }
+//        });
+//        v.getUser("Dave White", new OnSuccessListener<User>() {
+//            @Override
+//            public void onSuccess(User user) {
+//                System.out.println(user.getName());
+//                System.out.println(user.getUserType());
+//                System.out.println(user.getUserId());
+//            }
+//        }, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                ;
+//            }
+//        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

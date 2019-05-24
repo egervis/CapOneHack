@@ -10,7 +10,6 @@ import java.util.List;
 public class Category {
     private String categoryName;
     private List<Date> dates;
-    private List<String> people;
     private double maxCost;
     public final static SnapshotParser<Category> SNAPSHOTPARSER = new SnapshotParser<Category>() {
         @NonNull
@@ -18,16 +17,14 @@ public class Category {
         public Category parseSnapshot(@NonNull DocumentSnapshot snapshot) {
             return new Category(snapshot.getString("categoryName"),
                     (List<Date>)snapshot.get("dates"),
-                    (List<String>) snapshot.get("people"),
                     snapshot.getDouble("maxCost"));
         }
     };
 
-    public Category(String categoryName, List<Date> dates, List<String> people, double maxCost)
+    public Category(String categoryName, List<Date> dates, double maxCost)
     {
         this.categoryName = categoryName;
         this.dates = dates;
-        this.people = people;
         this.maxCost = maxCost;
     }
 
@@ -37,10 +34,6 @@ public class Category {
 
     public List<Date> getDates() {
         return dates;
-    }
-
-    public List<String> getPeople() {
-        return people;
     }
 
     public double getMaxCost() {
