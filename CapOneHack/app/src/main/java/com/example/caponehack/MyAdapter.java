@@ -89,6 +89,7 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
                     listState.get(position).setSelected(isChecked);
 
                     if(listState.get(position).isSelected()){
+                        System.out.println(listState.get(position).getTitle());
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                         builder.setTitle("Input Date and Price Limit");
 
@@ -110,9 +111,10 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String date = input1.getText().toString();
-                                dates.put(listState.get(position).getTitle(),date);
+                                System.out.println(listState.get(position).getTitle());
+                                //dates.put(listState.get(position).getTitle(),date);
                                 String limit = input2.getText().toString();
-                                limits.put(listState.get(position).getTitle(),limit);
+                               // limits.put(listState.get(position).getTitle(),limit);
 
                             }
                         });
