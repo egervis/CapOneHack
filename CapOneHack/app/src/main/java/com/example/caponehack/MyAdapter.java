@@ -129,4 +129,6 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
         private TextView mTextView;
         private CheckBox mCheckBox;
     }
+
+
 }
