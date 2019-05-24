@@ -46,7 +46,7 @@ public class HackView {
 
     public void getUser(final String name,
                         final OnSuccessListener<User> onSuccessListener,
-                        OnFailureListener onFailureListener) {
+                        final OnFailureListener onFailureListener) {
         db.collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -59,6 +59,18 @@ public class HackView {
                         break;
                     }
                 }
+            }
+        }).addOnFailureListener(onFailureListener);
+    }
+
+    public void getUserById(final String userId,
+                            final OnSuccessListener<User> onSuccessListener,
+                            final OnFailureListener onFailureListener) {
+        db.collection("users").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = User.SNAPSHOTPARSER.parseSnapshot(documentSnapshot);
+                onSuccessListener.onSuccess(user);
             }
         }).addOnFailureListener(onFailureListener);
     }
