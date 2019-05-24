@@ -1,5 +1,6 @@
 package com.example.caponehack;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,7 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.view.View.OnClickListener;
 
+import com.example.caponehack.Firebase.Controller;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class hr_makeForm extends AppCompatActivity {
@@ -33,9 +39,49 @@ public class hr_makeForm extends AppCompatActivity {
             listVOs.add(stateVO);
         }
 
-        MyAdapter myAdapter = new MyAdapter(hr_makeForm.this, 0,
+        final MyAdapter myAdapter = new MyAdapter(hr_makeForm.this, 0,
                 listVOs);
         spinner.setAdapter(myAdapter);
+
+        Button finish= findViewById(R.id.finish_button);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Controller control = new Controller();
+                control.createForm("hr-form", new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+
+                        ArrayList<String> categories=myAdapter.getCategories();
+
+                        for(String category : categories){
+                            List<Date> range = myAdapter.getDate(category);
+                            double limit = myAdapter.getLimit(category);
+                            control.createCategory(s, category, range, limit, new OnSuccessListener() {
+                                @Override
+                                public void onSuccess(Object o) {
+
+                                }
+                            }, new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    
+                                }
+                            });
+                        }
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
+
+
+            }
+        });
     }
 
     /*

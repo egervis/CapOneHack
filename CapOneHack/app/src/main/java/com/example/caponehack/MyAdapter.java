@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyAdapter extends ArrayAdapter<StateV0> {
@@ -22,8 +24,11 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
     private ArrayList<StateV0> listState;
     private MyAdapter myAdapter;
     private boolean isFromView = false;
-    private String date;
-    private String limit;
+
+
+    private HashMap<String,String> dates;
+    private HashMap<String, String> limits;
+
 
     public MyAdapter(Context context, int resource, List<StateV0> objects) {
         super(context, resource, objects);
@@ -104,8 +109,11 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                date = input1.getText().toString();
-                                limit = input2.getText().toString();
+                                String date = input1.getText().toString();
+                                dates.put(listState.get(position).getTitle(),date);
+                                String limit = input2.getText().toString();
+                                limits.put(listState.get(position).getTitle(),limit);
+
                             }
                         });
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -130,5 +138,31 @@ public class MyAdapter extends ArrayAdapter<StateV0> {
         private CheckBox mCheckBox;
     }
 
+    public ArrayList<String> getCategories(){
+        ArrayList<String> categories = new ArrayList<>();
 
+        for(StateV0 item : listState){
+            categories.add(item.getTitle());
+        }
+
+        return categories;
+    }
+
+    public List<Date> getDate(String category){
+
+        String d=dates.get(category);
+        String [] dateRange= d.split("-");
+
+        List<Date> toReturn=new ArrayList<>();
+
+        for(String s: dateRange){
+           Date t=new Date(s);
+           toReturn.add(t);
+        }
+        return toReturn;
+    }
+
+    public double getLimit(String category){
+        return Double.parseDouble(limits.get(category));
+    }
 }
