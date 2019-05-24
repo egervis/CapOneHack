@@ -8,5 +8,5 @@
         <item>Food</item>
         <item>Custom</item>
     </string-array>
-
+    <string name="title_activity_selection">SelectionActivity</string>
 </resources>
