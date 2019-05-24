@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CapOneHack</string>
     <string name="action_settings">Settings</string>
+    <string name="bdate">Begin Date</string>
+    <string name="edate">End Date</string>
     <string name="title_activity_selection">SelectionActivity</string>
 </resources>

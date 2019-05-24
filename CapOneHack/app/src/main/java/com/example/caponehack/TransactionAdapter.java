@@ -71,11 +71,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         TextView merchant;
 
+        TextView date;
+
         TextView amount;
 
         ViewHolder(View rootView) {
             super(rootView);
             cardView = rootView.findViewById(R.id.card_container);
+            date = rootView.findViewById(R.id.date);
             merchant = rootView.findViewById(R.id.merchant);
             amount = rootView.findViewById(R.id.amount);
         }
