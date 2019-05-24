@@ -104,24 +104,24 @@ public class MainActivity extends AppCompatActivity {
             view.getUserById(auth.getCurrentUser().getUid(), new OnSuccessListener<User>() {
                 @Override
                 public void onSuccess(User user) {
+                    System.out.println(user);
                     if (user == null) {
                         Log.v(TAG, "First time student signs in to this app");
 
-                        final String userId, userFirstName, userLastName;
                         final String userName = auth.getCurrentUser().getDisplayName();
-                        userId = auth.getCurrentUser().getUid();
 
                         Controller controller = new Controller();
-                        controller.createUser(userName,
+                        controller.createUser(auth.getCurrentUser().getUid(),
+                                userName,
                                 "regular",
-                                new OnSuccessListener<String>() {
+                                new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(String s) {
+                                    public void onSuccess(Void aVoid) {
                                         Intent intent = new Intent(MainActivity.this, SelectionActivity.class);
 
                                         intent.putExtra("userName",userName);
                                         intent.putExtra("userType","regular");
-                                        intent.putExtra("userId",userId);
+                                        intent.putExtra("userId",auth.getCurrentUser().getUid());
 
 
                                 startActivity(intent);
