@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,32 +8,51 @@
     android:orientation="vertical"
     tools:context=".hr_makeForm">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:backgroundTint="@color/cardview_dark_background"
-    android:layout_height="100dp">
-
-    <LinearLayout
-        android:id="@+id/spinner_container"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="241dp"
-        android:layout_height="33dp"
-        android:entries="@array/category_array"
-        android:prompt="@string/category_prompt"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="190dp" />
-    </LinearLayout>
-</ScrollView>
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Add expense category"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="110dp" />
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="7dp" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="203dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Delete Expense Category"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ScrollView
+        android:layout_width="413dp"
+        android:layout_height="675dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="78dp">
+
+        <LinearLayout
+            android:id="@+id/spinner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="241dp"
+                android:layout_height="33dp"
+                android:entries="@array/category_array"
+                android:prompt="@string/category_prompt"
+                tools:layout_editor_absoluteX="36dp"
+                tools:layout_editor_absoluteY="190dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

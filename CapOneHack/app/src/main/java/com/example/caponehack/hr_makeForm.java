@@ -23,16 +23,25 @@ public class hr_makeForm extends AppCompatActivity {
 
 
         final Button addButton = findViewById(R.id.button);
+        final Button deleteButton = findViewById(R.id.button2);
 
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Spinner aSpinner = new Spinner(hr_makeForm.this);
                 ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(hr_makeForm.this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.category_array));
-               // spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 aSpinner.setAdapter(spinnerArrayAdapter);
                 categories.add(aSpinner);
                 LinearLayout container=findViewById(R.id.spinner_container);
                 container.addView(aSpinner);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                for(Spinner aSpinner: categories){
+                    aSpinner.animate()
+                }
             }
         });
     }
